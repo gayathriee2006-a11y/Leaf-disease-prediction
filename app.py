@@ -6,12 +6,12 @@ import os
 
 file_id="1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p"
 url='https://drive.google.com/drive/folders/1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p'
-model_path="trained_plant_disease_model.keras"
+model_path="model.h5"
 
 
 if not os.path.exists(model_path):
-    st.warning("Downloading model from Google Drive...")
-    gdown.download(id=file_id, output=model_path, quiet=False,fuzzy=True)
+    url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    gdown.download(url, model_path, quiet=False)
 
 def load_model():
     return tf.keras.models.load_model(model_path)
