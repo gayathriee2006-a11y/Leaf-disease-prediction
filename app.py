@@ -5,7 +5,7 @@ import gdown
 import os
 
 file_id="1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p"
-url='https://drive.google.com/drive/folders/1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p'
+url='https://drive.google.com/drive/folders/1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p?usp=sharing'
 model_path="model.h5"
 
 
