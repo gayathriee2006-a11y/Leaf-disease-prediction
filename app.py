@@ -9,9 +9,10 @@ url='https://drive.google.com/drive/folders/1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p?us
 model_path="model.h5"
 
 
+
 if not os.path.exists(model_path):
     url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    gdown.download(url, model_path, quiet=False)
+    gdown.download(url, model_path, quiet=False, fuzzy=True)
 
 def load_model():
     return tf.keras.models.load_model(model_path)
