@@ -1,6 +1,6 @@
 streamlit
 tensorflow
-numpy
-pillow
-gdown
+keras
 opencv-python-headless
+gdown
+ipykernel
