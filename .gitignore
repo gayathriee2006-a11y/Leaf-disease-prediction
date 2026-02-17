@@ -1,0 +1,13 @@
+# virtual environment
+venv1/
+
+# python cache
+__pycache__/
+*.pyc
+
+# models (DO NOT upload)
+*.keras
+*.h5
+
+# system files
+*.dll
