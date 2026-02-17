@@ -1,59 +1,19 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
-import gdown
-import os
+from PIL import Image
 
-file_id="1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p"
-url='https://drive.google.com/drive/folders/1Uo6soKUSkjbDkOwhV-dF3M0OJ8RXLh0p?usp=sharing'
-model_path="model.h5"
+model_path = "model.h5"
 
-
-
-if not os.path.exists(model_path):
-    url = f"https://drive.google.com/uc?export=download&id={file_id}"
-    gdown.download(url, model_path, quiet=False)
-
+@st.cache_resource
 def load_model():
     return tf.keras.models.load_model(model_path)
 
 model = load_model()
 
 def model_prediction(test_image):
-    image = tf.keras.preprocessing.image.load_img(test_image,target_size=(128,128))
+    image = tf.keras.preprocessing.image.load_img(test_image, target_size=(128,128))
     input_arr = tf.keras.preprocessing.image.img_to_array(image)
-    input_arr = np.array([input_arr]) #convert single image to batch
+    input_arr = np.array([input_arr])
     predictions = model.predict(input_arr)
-    return np.argmax(predictions) #return index of max element
-
-#Sidebar
-st.sidebar.title("Plant Disease Detection System for Sustainable Agriculture")
-app_mode = st.sidebar.selectbox("Select Page",["HOME","DISEASE RECOGNITION"])
-#app_mode = st.sidebar.selectbox("Select Page",["Home"," ","Disease Recognition"])
-
-# import Image from pillow to open images
-from PIL import Image
-img = Image.open("disease.png")
-
-# display image using streamlit
-# width is used to set the width of an image
-st.image(img)
-
-#Main Page
-if(app_mode=="HOME"):
-    st.markdown("<h1 style='text-align: center;'>Plant Disease Detection System for Sustainable Agriculture", unsafe_allow_html=True)
-    
-#Prediction Page
-elif(app_mode=="DISEASE RECOGNITION"):
-    st.header("Plant Disease Detection System for Sustainable Agriculture")
-    test_image = st.file_uploader("Choose an Image:")
-    if(st.button("Show Image")):
-        st.image(test_image,width=4,use_column_width=True)
-    #Predict button
-    if(st.button("Predict")):
-        st.snow()
-        st.write("Our Prediction")
-        result_index = model_prediction(test_image)
-        #Reading Labels
-        class_name = ['Early_Blight', 'Healthy', 'Late_Blight']
-        st.success("Model is Predicting it's a {}".format(class_name[result_index]))
+    return np.argmax(predictions)
